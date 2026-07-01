@@ -1,0 +1,6 @@
+{
+  "name": "AMBALABU SMP",
+  "description": "Website resmi server Minecraft AMBALABU SMP. Informasi IP Server Java & Bedrock, aturan main, daftar rank, status server, dan tautan komunitas WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

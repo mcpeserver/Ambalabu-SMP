@@ -1,0 +1,16 @@
+{
+  "name": "AMBALABU SMP Minecraft Server",
+  "short_name": "AMBALABU SMP",
+  "description": "Website resmi server Minecraft AMBALABU SMP.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fcf8f2",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "/logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

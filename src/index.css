@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom Minecraft-like pixel patterns and aesthetic helpers */
+@layer utilities {
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(120, 110, 90, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(120, 110, 90, 0.05) 1px, transparent 1px);
+  }
+}
