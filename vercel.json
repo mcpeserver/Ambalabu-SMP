@@ -1,7 +1,6 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "frameworks": ["vite"],
   "routes": [
     {
       "src": "/robots.txt",
