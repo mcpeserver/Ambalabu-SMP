@@ -25,16 +25,16 @@ import {
 } from "lucide-react";
 
 export default function App() {
-  // State for copying status
+  // State copy status
   const [copiedJava, setCopiedJava] = useState(false);
   const [copiedBedrock, setCopiedBedrock] = useState(false);
   const [copiedPort, setCopiedPort] = useState(false);
   
-  // State for interactive status modal/check
+  // State status ping server
   const [pingState, setPingState] = useState<"idle" | "pinging" | "success">("idle");
   const [latency, setLatency] = useState<number | null>(null);
 
-  // Constants provided in the specifications
+  // Data utama sesuai spesifikasi
   const WA_LINK = "https://chat.whatsapp.com/CIjrlWdXz1hCXsKffL5MhH";
   const ADMIN_WA_PHONE = "0895602592430";
   const ADMIN_WA_LINK = `https://wa.me/62895602592430?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20seperti%20AMBALABU%20SMP%20atau%20layanan%20lainnya`;
@@ -42,23 +42,24 @@ export default function App() {
   const SERVER_IP_BEDROCK = "ambalabu.raznar.net";
   const SERVER_PORT_BEDROCK = "25062";
   const SERVER_VERSION = "1.21.11";
+  const PORTFOLIO_LINK = "https://sfl.gl/x2ic";
 
   const rulesList = [
-    { id: "rule-1", text: "No X-Ray", desc: "Dilarang menggunakan mod/texture pack X-Ray untuk melihat bijih tambang menembus dinding." },
-    { id: "rule-2", text: "No Client", desc: "Dilarang menggunakan client modifikasi ilegal yang menguntungkan diri sendiri secara tidak adil." },
-    { id: "rule-3", text: "No Cheat", desc: "Segala bentuk hack, cheat, exploits, fly, speedhack, dsb sangat dilarang keras." },
-    { id: "rule-4", text: "No Spam / Kirim Stiker 18+ di Grup", desc: "Menjaga kebersihan obrolan grup WhatsApp dari spam berkala dan konten berbau pornografi." },
-    { id: "rule-5", text: "No Anchor", desc: "Penggunaan Respawn Anchor di Overworld untuk pertempuran (Combat) dilarang." },
-    { id: "rule-6", text: "No Crystal", desc: "Penggunaan End Crystal dalam pertempuran (Combat PVP) dilarang." },
-    { id: "rule-7", text: "Dilarang Disconnect, /home, /warp, atau /rtp saat Combat", desc: "Tindakan melarikan diri dari pertarungan aktif (Combat Logging) dengan metode teleportasi atau keluar game dilarang keras." }
+    { id: "rule-1", text: "No X-Ray", desc: "Dilarang keras memakai modifikasi atau texture pack X-Ray jenis apa pun untuk melihat bijih tambang berharga menembus block bumi." },
+    { id: "rule-2", text: "No Client", desc: "Dilarang menggunakan cheat client (seperti wurst, meteor, dsb) yang memberikan keuntungan tidak adil atas player lain." },
+    { id: "rule-3", text: "No Cheat", desc: "Segala bentuk peretasan, cheat engine, exploit bug server, auto-aim, fly, atau sejenisnya dilarang mutlak." },
+    { id: "rule-4", text: "No Spam / Kirim Stiker 18+ di Grup", desc: "Menjaga sopan santun di grup WhatsApp komunitas dengan tidak membanjiri chat (spamming) atau mengirim konten pornografi." },
+    { id: "rule-5", text: "No Anchor", desc: "Dilarang meledakkan Respawn Anchor di dimensi Overworld untuk kepentingan PVP/Combat." },
+    { id: "rule-6", text: "No Crystal", desc: "Dilarang menggunakan ledakan End Crystal sebagai senjata pertempuran PVP/Combat antar player." },
+    { id: "rule-7", text: "Dilarang Disconnect, /home, /warp, atau /rtp saat Combat", desc: "Dilarang keras melakukan combat logging (keluar game) atau teleportasi saat pertempuran sedang aktif berlangsung." }
   ];
 
   const rankList = [
-    { name: "KING", price: "200K", color: "from-amber-400 to-yellow-600 animate-pulse", text: "text-amber-800", bg: "bg-amber-50 border-amber-300", benefits: "Rank Tertinggi dengan segala hak istimewa eksklusif dan kustomisasi maksimal." },
-    { name: "DUKE", price: "125K", color: "from-purple-500 to-indigo-600", text: "text-purple-800", bg: "bg-purple-50 border-purple-300", benefits: "Rank Bangsawan Agung dengan fasilitas luar biasa di atas rata-rata pemain." },
-    { name: "PALADIN", price: "75K", color: "from-teal-400 to-emerald-600", text: "text-teal-800", bg: "bg-teal-50 border-teal-300", benefits: "Ksatria Suci pelindung server dengan kosmetik khusus dan wewenang tambahan." },
-    { name: "LORD", price: "50K", color: "from-blue-500 to-cyan-600", text: "text-blue-800", bg: "bg-blue-50 border-blue-300", benefits: "Penguasa Wilayah dengan akses ke fitur premium dasar dan pengakuan khusus." },
-    { name: "KNIGHT", price: "25K", color: "from-slate-400 to-stone-600", text: "text-stone-800", bg: "bg-stone-50 border-stone-300", benefits: "Gelar Ksatria Pemula sebagai bentuk dukungan nyata bagi ekosistem server." }
+    { name: "KING", price: "200K", color: "from-amber-400 to-yellow-600 animate-pulse", text: "text-amber-800", bg: "bg-amber-50 border-amber-300", benefits: "Gelar tertinggi server. Mendapatkan hak istimewa eksklusif paling utama dan kustomisasi penuh." },
+    { name: "DUKE", price: "125K", color: "from-purple-500 to-indigo-600", text: "text-purple-800", bg: "bg-purple-50 border-purple-300", benefits: "Gelar kehormatan agung dengan hak dan fasilitas luar biasa di atas rata-rata player." },
+    { name: "PALADIN", price: "75K", color: "from-teal-400 to-emerald-600", text: "text-teal-800", bg: "bg-teal-50 border-teal-300", benefits: "Ksatria suci pelindung kedamaian dengan kosmetik chat keren serta hak tambahan." },
+    { name: "LORD", price: "50K", color: "from-blue-500 to-cyan-600", text: "text-blue-800", bg: "bg-blue-50 border-blue-300", benefits: "Penguasa wilayah berhak atas fitur premium dasar dan pengakuan nama di server." },
+    { name: "KNIGHT", price: "25K", color: "from-slate-400 to-stone-600", text: "text-stone-800", bg: "bg-stone-50 border-stone-300", benefits: "Pangkat kesatria pemula sebagai bentuk apresiasi nyata mendukung kelangsungan server." }
   ];
 
   const copyToClipboard = (text: string, type: "java" | "bedrock" | "port") => {
@@ -78,9 +79,9 @@ export default function App() {
   const handlePingServer = () => {
     setPingState("pinging");
     setTimeout(() => {
-      setLatency(Math.floor(Math.random() * (45 - 18) + 18));
+      setLatency(Math.floor(Math.random() * (42 - 19) + 19));
       setPingState("success");
-    }, 1200);
+    }, 1100);
   };
 
   const scrollToSection = (id: string) => {
@@ -93,137 +94,187 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#fcf8f2] flex flex-col font-sans relative antialiased bg-grid-pattern">
       
-      {/* HEADER WATERMARK (TOP BANNER) */}
-      <div id="developer-watermark-top" className="bg-amber-600 text-stone-900 font-medium text-xs md:text-sm py-2 px-4 shadow-sm relative z-50 text-center flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2">
-        <span className="text-white">Developed by <strong className="font-extrabold text-[#fcf8f2]">RAN DEV</strong> • WhatsApp {ADMIN_WA_PHONE}</span>
-        <span className="hidden sm:inline text-white/50">|</span>
-        <a 
-          href={ADMIN_WA_LINK} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-[#fcf8f2] underline decoration-dotted hover:text-white inline-flex items-center gap-1 transition-all"
-          aria-label="Hubungi pengembang RAN DEV di WhatsApp"
-        >
-          Butuh pembuatan website resmi/portofolio? Hubungi kami! <ExternalLink className="w-3.5 h-3.5 inline" />
-        </a>
-      </div>
+      {/* STICKY HEADER CONTAINER (Watermark Banner + Navigation Bar) */}
+      <div className="sticky top-0 z-40 w-full flex flex-col shadow-sm">
+        {/* HEADER WATERMARK (TOP BANNER) */}
+        <div id="developer-watermark-top" className="bg-amber-600 text-stone-900 font-medium text-xs md:text-sm py-2 px-4 relative z-50 text-center flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3">
+          <span className="text-white">Developed by <strong className="font-extrabold text-[#fcf8f2]">RAN DEV</strong> • WhatsApp {ADMIN_WA_PHONE}</span>
+          <span className="hidden sm:inline text-white/40">|</span>
+          <a 
+            href={PORTFOLIO_LINK} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-yellow-100 font-extrabold hover:text-white inline-flex items-center gap-1 transition-all bg-amber-700/50 px-2.5 py-0.5 rounded shadow-sm border border-amber-500/20"
+            aria-label="Lihat website server lain buatan RAN DEV"
+          >
+            🌐 Lihat Website Server Lainnya <ExternalLink className="w-3.5 h-3.5 inline ml-0.5" />
+          </a>
+          <span className="hidden sm:inline text-white/40">|</span>
+          <a 
+            href={ADMIN_WA_LINK} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-[#fcf8f2] underline decoration-dotted hover:text-white inline-flex items-center gap-1 transition-all"
+            aria-label="Hubungi pengembang RAN DEV di WhatsApp"
+          >
+            Jasa Bikin Website Server dll <ExternalLink className="w-3.5 h-3.5 inline" />
+          </a>
+        </div>
 
-      {/* NAVIGATION BAR */}
-      <header id="main-navigation" className="sticky top-0 z-40 bg-[#fcf8f2]/95 backdrop-blur-md border-b border-amber-900/10 py-3 px-4 md:px-8 shadow-sm">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}>
-            <img 
-              src="/logo.jpg" 
-              alt="AMBALABU SMP Logo" 
-              className="w-10 h-10 rounded-lg border border-amber-600/30 shadow-inner object-cover"
-              referrerPolicy="no-referrer"
-            />
-            <div>
-              <span className="font-display font-bold text-lg md:text-xl tracking-tight text-amber-950 flex items-center gap-1">
-                AMBALABU <span className="text-amber-600 text-xs px-2 py-0.5 rounded-full bg-amber-100 font-mono">SMP</span>
-              </span>
-              <p className="text-[10px] text-stone-500 font-mono -mt-0.5">Versi {SERVER_VERSION}</p>
+        {/* NAVIGATION BAR */}
+        <header id="main-navigation" className="bg-[#fcf8f2]/95 backdrop-blur-md border-b border-amber-900/10 py-3 px-4 md:px-8">
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}>
+              <img 
+                src="/logo.jpg" 
+                alt="AMBALABU SMP Logo" 
+                className="w-10 h-10 rounded-lg border border-amber-600/30 shadow-inner object-cover"
+                referrerPolicy="no-referrer"
+              />
+              <div>
+                <span className="font-display font-bold text-lg md:text-xl tracking-tight text-amber-950 flex items-center gap-1">
+                  AMBALABU <span className="text-amber-600 text-xs px-2 py-0.5 rounded-full bg-amber-100 font-mono">SMP</span>
+                </span>
+              </div>
+            </div>
+
+            <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-stone-600">
+              <button onClick={() => scrollToSection("connection-section")} className="hover:text-amber-700 transition-colors">IP Server</button>
+              <button onClick={() => scrollToSection("rules-section")} className="hover:text-amber-700 transition-colors">Aturan</button>
+              <button onClick={() => scrollToSection("features-section")} className="hover:text-amber-700 transition-colors">Fitur</button>
+              <button onClick={() => scrollToSection("rank-section")} className="hover:text-amber-700 transition-colors">Daftar Rank</button>
+              <button onClick={() => scrollToSection("portfolio-section")} className="hover:text-amber-700 transition-colors flex items-center gap-1 text-amber-800 font-bold bg-amber-100/50 px-2.5 py-0.5 rounded-full">Portfolio 🌐</button>
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <a 
+                href={WA_LINK} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-[#25D366] hover:bg-[#128C7E] text-white px-3.5 py-1.5 rounded-full text-xs md:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all hover:scale-105 active:scale-95"
+                aria-label="Bergabung ke grup WhatsApp AMBALABU SMP"
+              >
+                <MessageCircle className="w-4 h-4 fill-white text-transparent" />
+                Grup WA
+              </a>
             </div>
           </div>
-
-          <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-stone-600">
-            <button onClick={() => scrollToSection("connection-section")} className="hover:text-amber-700 transition-colors">IP Server</button>
-            <button onClick={() => scrollToSection("rules-section")} className="hover:text-amber-700 transition-colors">Aturan</button>
-            <button onClick={() => scrollToSection("features-section")} className="hover:text-amber-700 transition-colors">Fitur</button>
-            <button onClick={() => scrollToSection("rank-section")} className="hover:text-amber-700 transition-colors">Daftar Rank</button>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <a 
-              href={WA_LINK} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="bg-[#25D366] hover:bg-[#128C7E] text-white px-3.5 py-1.5 rounded-full text-xs md:text-sm font-bold flex items-center gap-1.5 shadow-sm transition-all hover:scale-105 active:scale-95"
-              aria-label="Bergabung ke grup WhatsApp AMBALABU SMP"
-            >
-              <MessageCircle className="w-4 h-4 fill-white" />
-              Grup WA
-            </a>
-          </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* MAIN CONTAINER */}
       <main className="flex-grow flex flex-col">
 
-        {/* HERO SECTION */}
-        <section id="hero-section" className="py-12 md:py-20 px-4 max-w-6xl mx-auto w-full flex flex-col items-center text-center relative overflow-hidden">
-          {/* Subtle nature blocks decoration details in the corners */}
+        {/* HERO SECTION WITH BENTO SIDE-BY-SIDE DESIGN */}
+        <section id="hero-section" className="py-12 md:py-16 px-4 max-w-6xl mx-auto w-full relative overflow-hidden">
+          {/* Subtle decorative grass elements in the corners */}
           <div className="absolute top-10 left-10 opacity-10 hidden lg:block select-none">
             <svg className="w-20 h-20 text-emerald-800" fill="currentColor" viewBox="0 0 24 24">
               <path d="M4 11h16v2H4zm-2-4h20v2H2zm4 8h12v2H6zm3 4h6v2H9z"/>
             </svg>
           </div>
-          <div className="absolute bottom-10 right-10 opacity-10 hidden lg:block select-none">
-            <svg className="w-24 h-24 text-amber-800" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L2 22h20L12 2zm0 4l7.5 13h-15L12 6z"/>
-            </svg>
-          </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col items-center"
-          >
-            {/* Logo Wrapper with decorative floating yellow coins (inspired by logo) */}
-            <div className="relative mb-6 md:mb-8 group">
-              {/* Outer soft glowing circle */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-yellow-600 rounded-full blur opacity-40 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Column (Logo, Title, Description, Actions) */}
+            <div className="lg:col-span-7 text-center lg:text-left flex flex-col items-center lg:items-start">
               
-              {/* Main logo frame */}
-              <div className="relative bg-[#fcf8f2] p-2 rounded-full border-4 border-amber-800/20 shadow-xl max-w-[200px] md:max-w-[240px]">
-                <img 
-                  src="/logo.jpg" 
-                  alt="Official AMBALABU SMP Logo" 
-                  className="rounded-full shadow-md aspect-square object-cover"
-                  referrerPolicy="no-referrer"
-                />
+              {/* Logo Wrapper with decorative floating yellow coins (inspired by logo) */}
+              <div className="relative mb-6 group inline-block">
+                {/* Soft glowing outer halo */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-yellow-600 rounded-full blur opacity-40 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+                
+                {/* Main logo round frame */}
+                <div className="relative bg-[#fcf8f2] p-1.5 rounded-full border-4 border-amber-800/20 shadow-lg max-w-[110px] md:max-w-[130px]">
+                  <img 
+                    src="/logo.jpg" 
+                    alt="Official AMBALABU SMP Logo" 
+                    className="rounded-full shadow-sm aspect-square object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+
+                {/* Floating elements to highlight playfulness */}
+                <span className="absolute -top-2 -left-4 text-3xl animate-bounce select-none" style={{ animationDuration: '3s' }}>🪙</span>
+                <span className="absolute -bottom-1 -right-3 text-3xl animate-bounce select-none" style={{ animationDuration: '4.5s' }}>🪙</span>
+                <span className="absolute bottom-5 -left-5 text-3xl rotate-12 select-none">⚔️</span>
               </div>
 
-              {/* Floating coin decoration left */}
-              <span className="absolute -top-3 -left-4 text-3xl animate-bounce select-none" style={{ animationDuration: '3s' }}>🪙</span>
-              {/* Floating coin decoration right */}
-              <span className="absolute -bottom-2 -right-3 text-3xl animate-bounce select-none" style={{ animationDuration: '4.5s' }}>🪙</span>
-              {/* Diamond sword visual decoration */}
-              <span className="absolute bottom-6 -left-6 text-3xl rotate-12 select-none">⚔️</span>
+              <h1 className="font-display font-extrabold text-3.5xl sm:text-5xl md:text-5.5xl text-stone-900 tracking-tight leading-none mb-4">
+                Welcome to <br className="sm:hidden" />
+                <span className="bg-gradient-to-r from-amber-700 via-amber-600 to-yellow-600 bg-clip-text text-transparent drop-shadow-sm">
+                  AMBALABU SMP
+                </span>
+              </h1>
+
+              <p className="max-w-xl text-stone-600 text-sm sm:text-base mb-6 leading-relaxed">
+                Website resmi server Minecraft <span className="font-bold text-amber-950">AMBALABU SMP</span>. Komunitas bermain survival yang ramah, seru, dan santai dengan nuansa pixel art yang menyenangkan. Temukan teman bermain baru, bangun desamu, dan mulailah petualangan hebatmu di sini!
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start w-full max-w-sm sm:max-w-none">
+                <button 
+                  onClick={() => scrollToSection("connection-section")}
+                  className="bg-gradient-to-r from-amber-700 to-yellow-600 hover:from-amber-800 hover:to-yellow-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-sm"
+                  aria-label="Lihat detail koneksi IP untuk bermain sekarang"
+                >
+                  <Gamepad2 className="w-4 h-4" />
+                  Main Sekarang
+                </button>
+                <button 
+                  onClick={() => scrollToSection("rules-section")}
+                  className="bg-amber-100 hover:bg-amber-200/80 text-amber-900 border border-amber-200 font-bold px-6 py-3 rounded-xl shadow-sm transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-sm"
+                  aria-label="Lihat aturan dan informasi lengkap server"
+                >
+                  <Info className="w-4 h-4" />
+                  Lihat Informasi
+                </button>
+              </div>
             </div>
 
-            <h1 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-stone-900 tracking-tight leading-none mb-4">
-              Welcome to <br className="sm:hidden" />
-              <span className="bg-gradient-to-r from-amber-700 via-amber-600 to-yellow-600 bg-clip-text text-transparent drop-shadow-sm">
-                AMBALABU SMP
-              </span>
-            </h1>
-
-            <p className="max-w-2xl text-stone-600 text-sm sm:text-base md:text-lg mb-8 leading-relaxed px-2">
-              Website resmi server Minecraft <span className="font-bold text-amber-950">AMBALABU SMP</span>. Komunitas bermain survival yang ramah, seru, dan santai dengan nuansa pixel art yang menyenangkan. Temukan teman bermain baru, bangun desamu, dan mulailah petualangan hebatmu di sini!
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-sm sm:max-w-none px-4">
-              <button 
-                onClick={() => scrollToSection("connection-section")}
-                className="bg-gradient-to-r from-amber-700 to-yellow-600 hover:from-amber-800 hover:to-yellow-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-amber-700/20 transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base"
-                aria-label="Lihat detail koneksi IP untuk bermain sekarang"
+            {/* Right Column (Minecraft World Hero Banner Showcase) */}
+            <div className="lg:col-span-5 flex justify-center">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="relative w-full max-w-md bg-white border-4 border-amber-950/10 rounded-3xl p-3 shadow-xl overflow-hidden group"
               >
-                <Gamepad2 className="w-5 h-5" />
-                Main Sekarang
-              </button>
-              <button 
-                onClick={() => scrollToSection("rules-section")}
-                className="bg-amber-100 hover:bg-amber-200/80 text-amber-900 border border-amber-200 font-bold px-8 py-3.5 rounded-2xl shadow-sm transition-all hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base"
-                aria-label="Lihat aturan dan informasi lengkap server"
-              >
-                <Info className="w-5 h-5" />
-                Lihat Informasi
-              </button>
+                {/* Blocky top styled strip */}
+                <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+                
+                {/* Generated Hero Image Showcase */}
+                <div className="relative overflow-hidden rounded-2xl aspect-[16/11] bg-stone-100">
+                  <img 
+                    src="/hero_banner.jpg" 
+                    alt="AMBALABU SMP World Landscape" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 via-transparent to-transparent"></div>
+                  
+                  {/* Small absolute detail badge */}
+                  <span className="absolute bottom-2 left-2 bg-black/60 text-white font-mono text-[10px] px-2 py-0.5 rounded backdrop-blur-sm">
+                    Pemandangan Server Resmi 🌄
+                  </span>
+                </div>
+
+                {/* Subinfo block below image */}
+                <div className="mt-3 p-1 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">🏕️</span>
+                    <div>
+                      <p className="font-display font-extrabold text-xs text-stone-900">Survival Server</p>
+                      <p className="text-[10px] text-stone-500 font-mono">Platform: Java & Bedrock</p>
+                    </div>
+                  </div>
+                  <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full font-mono">
+                    Online 🟢
+                  </span>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
+
+          </div>
         </section>
 
         {/* SERVER STATUS AND METRICS BAR */}
@@ -297,7 +348,7 @@ export default function App() {
                   <span>☕</span> Java Edition
                 </h3>
                 <p className="text-stone-600 text-xs md:text-sm mb-6 leading-relaxed">
-                  Gunakan komputer atau laptop kamu, luncurkan launcher Minecraft resmi, masukkan server IP Java, dan mulailah berpetualang.
+                  Gunakan PC atau laptop, buka game launcher resmi, ketikkan server IP Java di menu multiplayer, dan mulailah berpetualang.
                 </p>
 
                 {/* COPY WIDGET */}
@@ -350,7 +401,7 @@ export default function App() {
                   <span>📱</span> Bedrock / PE
                 </h3>
                 <p className="text-stone-600 text-xs md:text-sm mb-6 leading-relaxed">
-                  Sempurna untuk HP Android, iOS, Windows 10, Xbox, Nintendo Switch, atau Playstation. Memerlukan IP server dan port.
+                  Cocok untuk HP Android, iOS, Windows 10, Xbox, atau Playstation. Silakan salin IP server sekaligus port bedrock yang benar.
                 </p>
 
                 {/* COPY WIDGET BEDROCK */}
@@ -665,6 +716,54 @@ export default function App() {
           </div>
         </section>
 
+        {/* PORTFOLIO SECTION (KOLEKSI SERVER LAIN OLEH RAN DEV) */}
+        <section id="portfolio-section" className="py-12 px-4 max-w-4xl mx-auto w-full">
+          <motion.div 
+            whileHover={{ y: -3 }}
+            className="bg-white border border-amber-900/10 rounded-3xl p-6 md:p-8 shadow-sm relative overflow-hidden"
+          >
+            {/* Left edge colored border */}
+            <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-amber-600 to-yellow-500"></div>
+            
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-start gap-4 text-left">
+                <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-amber-700 flex-shrink-0">
+                  <Globe className="w-6 h-6 animate-pulse" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded font-mono uppercase tracking-wider">
+                      RAN DEV PORTFOLIO
+                    </span>
+                    <span className="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded font-mono">
+                      RECOMMENDED
+                    </span>
+                  </div>
+                  <h3 className="font-display font-extrabold text-xl text-stone-900 mt-2">
+                    Lihat Website Server Minecraft Lainnya!
+                  </h3>
+                  <p className="text-stone-600 text-xs sm:text-sm mt-1 leading-relaxed">
+                    Tertarik melihat hasil karya website server Minecraft lainnya yang telah dirancang oleh <strong>RAN DEV</strong>? Temukan inspirasi desain website modern, responsif, dan siap pakai.
+                  </p>
+                </div>
+              </div>
+
+              <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
+                <a 
+                  href={PORTFOLIO_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-stone-900 hover:bg-stone-800 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm whitespace-nowrap"
+                  aria-label="Lihat portofolio server lain di sfl.gl/x2ic"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Kunjungi sfl.gl/x2ic
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
         {/* CALL TO ACTION SECTION */}
         <section id="cta-section" className="py-16 md:py-24 bg-gradient-to-br from-amber-600 via-amber-700 to-yellow-600 text-white text-center px-4 relative overflow-hidden">
           {/* Minecraft aesthetic earth grass block decorative bottom wave */}
@@ -721,11 +820,14 @@ export default function App() {
             </div>
           </div>
 
-          <div className="text-center md:text-right">
+          <div className="text-center md:text-right flex flex-col items-center md:items-end gap-1">
             {/* OFFICIAL DEVELOPER WATERMARK FOOTER */}
-            <p className="text-xs text-stone-500 uppercase tracking-widest font-mono font-bold mb-1">PENGEMBANG RESMI</p>
+            <p className="text-xs text-stone-500 uppercase tracking-widest font-mono font-bold mb-0.5">PENGEMBANG RESMI</p>
             <p className="text-xs text-stone-300 font-medium">
-              Website dikembangkan oleh <span className="text-amber-500 font-bold">RAN DEV</span> • WhatsApp <a href={`https://wa.me/62895602592430`} target="_blank" rel="noopener noreferrer" className="hover:underline">{ADMIN_WA_PHONE}</a>
+              Website dikembangkan oleh <span className="text-amber-500 font-bold">RAN DEV</span> • WhatsApp <a href={`https://wa.me/62895602592430`} target="_blank" rel="noopener noreferrer" className="hover:underline text-white font-mono">{ADMIN_WA_PHONE}</a>
+            </p>
+            <p className="text-xs text-stone-400 mt-1">
+              🎨 <a href={PORTFOLIO_LINK} target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1">Kunjungi Portofolio Server Minecraft Lainnya <ExternalLink className="w-3 h-3 inline" /></a>
             </p>
           </div>
         </div>
