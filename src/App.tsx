@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Copy, 
@@ -34,15 +34,46 @@ export default function App() {
   const [pingState, setPingState] = useState<"idle" | "pinging" | "success">("idle");
   const [latency, setLatency] = useState<number | null>(null);
 
+  // Dynamic Developer Config from API
+  const [devConfig, setDevConfig] = useState({
+    name: "RAN DEV",
+    phone: "0895602592430",
+    portfolio: "https://sfl.gl/x2ic",
+    discord: "https://discord.gg/9KUN2byKRM",
+    communityName: "RAN DEV Community",
+    communityWebsite: "https://discord.gg/9KUN2byKRM"
+  });
+
+  useEffect(() => {
+    fetch("https://raw.githubusercontent.com/mcpeserver/MyAPI/main/config.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((data) => {
+        setDevConfig({
+          name: data.name || "RAN DEV",
+          phone: data.contact?.phone || "0895602592430",
+          portfolio: data.links?.portfolio || data.website?.portfolio || "https://sfl.gl/x2ic",
+          discord: data.links?.discord || "https://discord.gg/9KUN2byKRM",
+          communityName: data.community?.name || "RAN DEV Community",
+          communityWebsite: data.community?.website || data.links?.discord || "https://discord.gg/9KUN2byKRM"
+        });
+      })
+      .catch((err) => {
+        console.error("Gagal memuat config developer dari API:", err);
+      });
+  }, []);
+
   // Data utama sesuai spesifikasi
   const WA_LINK = "https://chat.whatsapp.com/CIjrlWdXz1hCXsKffL5MhH";
-  const ADMIN_WA_PHONE = "0895602592430";
-  const ADMIN_WA_LINK = `https://wa.me/62895602592430?text=Halo%20RAN%20DEV,%20saya%20tertarik%20untuk%20membuat%20website%20seperti%20AMBALABU%20SMP%20atau%20layanan%20lainnya`;
+  const ADMIN_WA_PHONE = devConfig.phone;
+  const ADMIN_WA_LINK = `https://wa.me/62${devConfig.phone.replace(/^0/, '')}?text=Halo%20${encodeURIComponent(devConfig.name)},%20saya%20tertarik%20untuk%20membuat%20website%20seperti%20AMBALABU%20SMP%20atau%20layanan%20lainnya`;
   const SERVER_IP_JAVA = "ambalabu.raznar.net:25007";
   const SERVER_IP_BEDROCK = "ambalabu.raznar.net";
   const SERVER_PORT_BEDROCK = "25062";
   const SERVER_VERSION = "1.21.11";
-  const PORTFOLIO_LINK = "https://sfl.gl/x2ic";
+  const PORTFOLIO_LINK = devConfig.portfolio;
 
   const rulesList = [
     { id: "rule-1", text: "No X-Ray", desc: "Dilarang keras memakai modifikasi atau texture pack X-Ray jenis apa pun untuk melihat bijih tambang berharga menembus block bumi." },
@@ -97,11 +128,11 @@ export default function App() {
       {/* STICKY HEADER CONTAINER (Watermark Banner + Navigation Bar) */}
       <div className="sticky top-0 z-40 w-full flex flex-col shadow-sm">
         {/* HEADER WATERMARK (TOP BANNER) */}
-        <div id="developer-watermark-top" className="bg-amber-600 text-stone-900 font-medium text-xs md:text-sm py-2 px-4 relative z-50 text-center flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3">
-          <span className="text-white">Developed by <strong className="font-extrabold text-[#fcf8f2]">RAN DEV</strong> • WhatsApp {ADMIN_WA_PHONE}</span>
+        <div id="developer-watermark-top" className="bg-amber-600 text-stone-900 font-medium text-xs md:text-sm py-2 px-4 relative z-50 text-center flex flex-col sm:flex-row justify-center items-center gap-1.5 sm:gap-3 flex-wrap">
+          <span className="text-white">Developed by <strong className="font-extrabold text-[#fcf8f2]">{devConfig.name}</strong> • WhatsApp {devConfig.phone}</span>
           <span className="hidden sm:inline text-white/40">|</span>
           <a 
-            href={PORTFOLIO_LINK} 
+            href={devConfig.portfolio} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-yellow-100 font-extrabold hover:text-white inline-flex items-center gap-1 transition-all bg-amber-700/50 px-2.5 py-0.5 rounded shadow-sm border border-amber-500/20"
@@ -111,11 +142,21 @@ export default function App() {
           </a>
           <span className="hidden sm:inline text-white/40">|</span>
           <a 
+            href={devConfig.communityWebsite} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-emerald-100 font-extrabold hover:text-white inline-flex items-center gap-1 transition-all bg-amber-800/40 px-2.5 py-0.5 rounded shadow-sm border border-amber-500/20"
+            aria-label="Gabung Komunitas Developer"
+          >
+            👥 Gabung Komunitas Developer <ExternalLink className="w-3.5 h-3.5 inline ml-0.5" />
+          </a>
+          <span className="hidden sm:inline text-white/40">|</span>
+          <a 
             href={ADMIN_WA_LINK} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="text-[#fcf8f2] underline decoration-dotted hover:text-white inline-flex items-center gap-1 transition-all"
-            aria-label="Hubungi pengembang RAN DEV di WhatsApp"
+            aria-label="Hubungi pengembang di WhatsApp"
           >
             Jasa Bikin Website Server dll <ExternalLink className="w-3.5 h-3.5 inline" />
           </a>
@@ -733,7 +774,7 @@ export default function App() {
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded font-mono uppercase tracking-wider">
-                      RAN DEV PORTFOLIO
+                      {devConfig.name.toUpperCase()} PORTFOLIO
                     </span>
                     <span className="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded font-mono">
                       RECOMMENDED
@@ -743,7 +784,7 @@ export default function App() {
                     Lihat Website Server Minecraft Lainnya!
                   </h3>
                   <p className="text-stone-600 text-xs sm:text-sm mt-1 leading-relaxed">
-                    Tertarik melihat hasil karya website server Minecraft lainnya yang telah dirancang oleh <strong>RAN DEV</strong>? Temukan inspirasi desain website modern, responsif, dan siap pakai.
+                    Tertarik melihat hasil karya website server Minecraft lainnya yang telah dirancang oleh <strong>{devConfig.name}</strong>? Temukan inspirasi desain website modern, responsif, dan siap pakai.
                   </p>
                 </div>
               </div>
@@ -754,10 +795,10 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-stone-900 hover:bg-stone-800 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm whitespace-nowrap"
-                  aria-label="Lihat portofolio server lain di sfl.gl/x2ic"
+                  aria-label={`Lihat portofolio server lain di ${PORTFOLIO_LINK.replace(/^https?:\/\//, '')}`}
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Kunjungi sfl.gl/x2ic
+                  Kunjungi {PORTFOLIO_LINK.replace(/^https?:\/\//, '')}
                 </a>
               </div>
             </div>
@@ -824,10 +865,12 @@ export default function App() {
             {/* OFFICIAL DEVELOPER WATERMARK FOOTER */}
             <p className="text-xs text-stone-500 uppercase tracking-widest font-mono font-bold mb-0.5">PENGEMBANG RESMI</p>
             <p className="text-xs text-stone-300 font-medium">
-              Website dikembangkan oleh <span className="text-amber-500 font-bold">RAN DEV</span> • WhatsApp <a href={`https://wa.me/62895602592430`} target="_blank" rel="noopener noreferrer" className="hover:underline text-white font-mono">{ADMIN_WA_PHONE}</a>
+              Website dikembangkan oleh <span className="text-amber-500 font-bold">{devConfig.name}</span> • WhatsApp <a href={`https://wa.me/62${devConfig.phone.replace(/^0/, '')}?text=Halo%20${encodeURIComponent(devConfig.name)}`} target="_blank" rel="noopener noreferrer" className="hover:underline text-white font-mono">{devConfig.phone}</a>
             </p>
-            <p className="text-xs text-stone-400 mt-1">
-              🎨 <a href={PORTFOLIO_LINK} target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1">Kunjungi Portofolio Server Minecraft Lainnya <ExternalLink className="w-3 h-3 inline" /></a>
+            <p className="text-xs text-stone-400 mt-1 flex flex-wrap justify-center md:justify-end gap-x-3 gap-y-1">
+              <span>🎨 <a href={PORTFOLIO_LINK} target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline font-semibold inline-flex items-center gap-1">Kunjungi Portofolio <ExternalLink className="w-3 h-3 inline" /></a></span>
+              <span className="hidden sm:inline text-stone-600">|</span>
+              <span>👥 <a href={devConfig.communityWebsite} target="_blank" rel="noopener noreferrer" className="text-[#34d399] hover:underline font-semibold inline-flex items-center gap-1">Gabung {devConfig.communityName} <ExternalLink className="w-3 h-3 inline" /></a></span>
             </p>
           </div>
         </div>
